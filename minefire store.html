@@ -1,0 +1,2687 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineFire Store - Minecraft Accounts & Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #C8E6C9;
+            --secondary: #7B1FA2;
+            --secondary-light: #E1BEE7;
+            --accent: #FF9800;
+            --accent-light: #FFE0B2;
+            --discord: #5865F2;
+            --trending: #FF4081;
+            --out-of-stock: #F44336;
+            --limited-stock: #FF9800;
+            --in-stock: #4CAF50;
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #2D3748;
+            --text-secondary: #718096;
+            --card-bg: #ffffff;
+            --card-border: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0,0,0,0.1);
+            --shadow-hover-color: rgba(0,0,0,0.15);
+            --shadow: 0 10px 25px var(--shadow-color);
+            --shadow-hover: 0 15px 35px var(--shadow-hover-color);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a202c;
+            --bg-secondary: #2D3748;
+            --text-primary: #f7fafc;
+            --text-secondary: #cbd5e0;
+            --card-bg: #2D3748;
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0,0,0,0.3);
+            --shadow-hover-color: rgba(0,0,0,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+        }
+
+        .theme-switcher:hover {
+            transform: rotate(30deg) scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Filter Section Styles */
+        .filters-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filters-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--card-border);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .clear-filters {
+            background: transparent;
+            border: none;
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .clear-filters:hover {
+            background: rgba(123, 31, 162, 0.1);
+        }
+
+        /* Products Layout */
+        .products {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            padding: 0.5rem;
+        }
+
+        .stock-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            z-index: 2;
+        }
+
+        .out-of-stock {
+            background: var(--out-of-stock);
+        }
+
+        .limited-stock {
+            background: var(--limited-stock);
+        }
+
+        .in-stock {
+            background: var(--in-stock);
+        }
+
+        .trending-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--trending);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .product-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-features {
+            text-align: left;
+            margin: 0.5rem 0 1rem 0;
+            padding-left: 0;
+        }
+
+        .product-features li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            list-style-type: none;
+            padding-left: 1.5rem;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+        }
+
+        .product-features li::before {
+            content: "=";
+            font-weight: 900;
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-light);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .price-container {
+            margin: 1rem 0;
+        }
+
+        .original-price {
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .discount-badge {
+            background: linear-gradient(135deg, #FF5252, #FF0000);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        .current-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .view-details-btn {
+            display: block;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .view-details-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .buy-now-btn {
+            display: block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .buy-now-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .buy-now-btn:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Refund Policy Button */
+        .refund-policy-btn {
+            display: block;
+            margin: 2rem auto;
+            background: linear-gradient(135deg, var(--accent), #FF5722);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .refund-policy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Refund Policy Popup */
+        .refund-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .refund-container {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-hover);
+            transform: scale(0.9);
+            animation: scaleUp 0.5s ease forwards;
+            border: 1px solid var(--card-border);
+            z-index: 2001;
+        }
+
+        .refund-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            background: none;
+            border: none;
+            z-index: 2010;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .refund-close-btn:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg) scale(1.1);
+            background: var(--primary-light);
+        }
+
+        .refund-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .refund-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .refund-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .refund-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .refund-section-title i {
+            margin-right: 0.8rem;
+            color: var(--primary);
+        }
+
+        .refund-list {
+            padding-left: 1.8rem;
+            margin: 0.8rem 0;
+        }
+
+        .refund-list li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .refund-note {
+            background: linear-gradient(135deg, var(--accent-light), #FFECB3);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent);
+        }
+
+        .refund-note h4 {
+            color: #E65100;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .refund-contact {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            border-radius: 15px;
+            border: 2px dashed var(--primary);
+        }
+
+        .refund-contact a {
+            color: var(--secondary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .refund-contact a:hover {
+            text-decoration: underline;
+        }
+
+        /* Product Detail View */
+        .product-detail {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        .back-to-products {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .back-to-products:hover {
+            color: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+
+        .product-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .product-detail-image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .product-detail-image {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        .product-detail-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .product-detail-description {
+            color: var(--text-secondary);
+            margin: 1.5rem 0;
+            line-height: 1.7;
+            text-align: center;
+            padding: 0 2rem;
+            font-style: italic;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        .product-detail-price {
+            margin: 1.5rem 0;
+        }
+
+        .product-detail-features {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .product-detail-features li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            list-style-type: none;
+            padding-left: 2rem;
+            color: var(--text-primary);
+        }
+
+        .product-detail-features li::before {
+            content: "=";
+            font-weight: 900;
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-light);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn:disabled {
+            background: var(--text-secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Order Form Popup */
+        .form-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: var(--shadow-hover);
+            transform: scale(0.9);
+            animation: scaleUp 0.5s ease forwards;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--card-border);
+            z-index: 1001;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            background: none;
+            border: none;
+            z-index: 1010;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg) scale(1.1);
+            background: var(--primary-light);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-input {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 1.5rem;
+            border: 2px dashed var(--card-border);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .file-upload-label i {
+            margin-right: 0.5rem;
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .payment-instructions {
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid var(--primary);
+        }
+
+        .payment-instructions h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+        }
+
+        .qr-code-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-light);
+            animation: pulse 2s infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .qr-code-container img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .qr-code-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-code-container p {
+            margin-top: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .ltc-address {
+            background: linear-gradient(135deg, var(--secondary-light), #D1C4E9);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            color: var(--secondary);
+            word-break: break-all;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+
+        .upload-instructions {
+            background: linear-gradient(135deg, var(--accent-light), #FFECB3);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent);
+        }
+
+        .upload-instructions h4 {
+            color: #E65100;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .upload-instructions ol {
+            padding-left: 1.8rem;
+            margin: 0.8rem 0;
+        }
+
+        .upload-instructions li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            border-radius: 20px;
+            margin: 2rem 0;
+            animation: fadeIn 0.5s ease;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .success-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 1010;
+        }
+
+        .success-close-btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: bounceIn 1s ease;
+            color: white;
+        }
+
+        .success-message h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            color: white;
+        }
+
+        .success-message p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+            color: white;
+        }
+
+        .success-action-btn {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .success-action-btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-content {
+            display: block;
+        }
+
+        .form-success {
+            display: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            color: white;
+            padding: 3rem 0 1.5rem 0;
+            margin-top: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .footer-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-text {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0.3rem 0;
+        }
+
+        .footer-contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .footer-icon {
+            margin-right: 1rem;
+            color: var(--accent-light);
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            justify-content: center;
+        }
+
+        .footer-social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .footer-social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom .footer-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        [data-theme="dark"] .footer-text,
+        [data-theme="dark"] .footer-link {
+             color: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="dark"] .footer-link:hover {
+             color: white;
+        }
+
+        /* Admin Login Button */
+        .admin-login-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .admin-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            border: 1px solid var(--card-border);
+        }
+
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        .admin-tab {
+            flex: 1;
+            padding: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            color: var(--text-primary);
+        }
+
+        .admin-tab.active {
+            border-bottom: 3px solid var(--primary);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .admin-tab:hover {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .admin-tab-content {
+            display: none;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        .admin-tab-content.active {
+            display: block;
+        }
+
+        .admin-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .admin-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .admin-section-title i {
+            margin-right: 0.8rem;
+            color: var(--primary);
+        }
+
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .admin-form textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .admin-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-primary);
+        }
+
+        .admin-table th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-weight: 600;
+        }
+
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .admin-table tr:hover {
+            background: rgba(200, 230, 201, 0.2);
+        }
+
+        .admin-action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-right: 0.5rem;
+        }
+
+        .btn-edit {
+            background: #FFC107;
+            color: #000;
+        }
+
+        .btn-delete {
+            background: #F44336;
+            color: white;
+        }
+
+        .btn-reply {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-view {
+            background: #2196F3;
+            color: white;
+        }
+
+        .admin-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            z-index: 1000;
+            border-left: 4px solid #4CAF50;
+            color: var(--text-primary);
+        }
+
+        .notification.success {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .notification.error {
+            border-left: 4px solid #F44336;
+        }
+
+        .notification i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .success i {
+            color: #4CAF50;
+        }
+
+        .error i {
+            color: #F44336;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            margin-top: 1rem;
+            grid-column: span 2;
+        }
+        
+        .image-upload-preview {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border: 2px dashed var(--card-border);
+            border-radius: 12px;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .image-upload-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .image-upload-preview .placeholder {
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .image-upload-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .upload-btn, .remove-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .remove-btn {
+            background: var(--out-of-stock);
+            color: white;
+        }
+        
+        .upload-btn:hover, .remove-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes scaleUp {
+            to { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .product-detail-content {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-tabs {
+                flex-direction: column;
+            }
+
+            .admin-login-btn {
+                bottom: 20px;
+                left: 20px;
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .theme-switcher {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .refund-container {
+                padding: 1.5rem;
+            }
+
+            .refund-section-title {
+                font-size: 1.3rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .qr-code-container img {
+                max-width: 180px;
+            }
+            
+            .ltc-address {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+            
+            .image-upload-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Switcher Button -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <header>
+        <h1>MineFire Store</h1>
+        <p>Premium Minecraft Accounts & Products</p>
+    </header>
+
+    <div class="container">
+        <!-- Products Section -->
+        <h2 class="section-title">Our Products</h2>
+
+        <!-- Filter Section -->
+        <div class="filters-container">
+            <div class="filters-header">
+                <h3 class="filters-title">Filter Products</h3>
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label class="filter-label">Sort By</label>
+                        <select class="filter-select" id="sortSelect">
+                            <option value="default">Default</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="popularity">Popularity</option>
+                            <option value="newest">Newest First</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Category</label>
+                        <select class="filter-select" id="categorySelect">
+                            <option value="all">All Products</option>
+                            <option value="minecraft">Minecraft Premium</option>
+                            <option value="ott">OTT</option>
+                        </select>
+                    </div>
+                    <button class="clear-filters" id="clearFilters">
+                        <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="products" id="productsContainer">
+            <!-- Products will be dynamically loaded here -->
+        </div>
+
+        <!-- Refund Policy Button -->
+        <button class="refund-policy-btn" onclick="openRefundPolicy()">
+            <i class="fas fa-file-contract"></i> View Refund Policy
+        </button>
+
+        <!-- Product Detail View -->
+        <div class="product-detail" id="productDetail">
+            <div class="back-to-products" onclick="backToProducts()">
+                <i class="fas fa-arrow-left"></i> Back to Products
+            </div>
+            <div class="product-detail-content" id="productDetailContent">
+                <!-- Product detail will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Admin Panel Section -->
+        <div class="admin-panel" id="adminPanel">
+            <div class="admin-tabs">
+                <div class="admin-tab active" onclick="openAdminTab('products')">Product Management</div>
+                <div class="admin-tab" onclick="openAdminTab('orders')">Order Management</div>
+                <div class="admin-tab" onclick="openAdminTab('pricing')">Pricing Management</div>
+            </div>
+            
+            <!-- Product Management Tab -->
+            <div id="productsTab" class="admin-tab-content active">
+                <div class="admin-section">
+                    <h3 class="admin-section-title"><i class="fas fa-box"></i> Add New Product</h3>
+                    <form class="admin-form" id="addProductForm">
+                        <div class="form-group">
+                            <label for="productTitle">Product Title</label>
+                            <input type="text" id="productTitle" placeholder="Enter product title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Product Description</label>
+                            <textarea id="productDescription" placeholder="Enter product description" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="originalPrice">Original Price (LTC)</label>
+                            <input type="number" id="originalPrice" placeholder="Enter original price" step="0.0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="discountedPrice">Discounted Price (LTC)</label>
+                            <input type="number" id="discountedPrice" placeholder="Enter discounted price" step="0.0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category</label>
+                            <select id="productCategory" required>
+                                <option value="minecraft">Minecraft Premium</option>
+                                <option value="ott">OTT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productFeatures">Features (comma separated)</label>
+                            <textarea id="productFeatures" placeholder="Feature 1, Feature 2, Feature 3" rows="3" required></textarea>
+                        </div>
+                        
+                        <!-- Image Upload Section - Replaced URL input -->
+                        <div class="image-upload-container">
+                            <label>Product Image</label>
+                            <div class="image-upload-preview" id="imagePreview">
+                                <div class="placeholder">Image preview will appear here</div>
+                            </div>
+                            <div class="image-upload-actions">
+                                <button type="button" class="upload-btn" onclick="document.getElementById('imageUpload').click()">
+                                    <i class="fas fa-upload"></i> Upload Image
+                                </button>
+                                <button type="button" class="remove-btn" onclick="removeImage()">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
+                            <input type="file" id="imageUpload" accept="image/*" class="hidden" onchange="previewImage(this)">
+                            <input type="hidden" id="productImage" value="">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stockStatus">Stock Status</label>
+                            <select id="stockStatus" required>
+                                <option value="in-stock">In Stock</option>
+                                <option value="limited-stock">Limited Stock</option>
+                                <option value="out-of-stock">Out of Stock</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="isTrending">Trending Product</label>
+                            <select id="isTrending" required>
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <button type="submit" class="btn">Add Product</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="admin-section">
+                    <h3 class="admin-section-title"><i class="fas fa-list"></i> Manage Products</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Original Price</th>
+                                <th>Discounted Price</th>
+                                <th>Discount %</th>
+                                <th>Stock Status</th>
+                                <th>Trending</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <!-- Products will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Order Management Tab -->
+            <div id="ordersTab" class="admin-tab-content">
+                <div class="admin-section">
+                    <h3 class="admin-section-title"><i class="fas fa-shopping-cart"></i> All Orders</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            <!-- Orders will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pricing Management Tab -->
+            <div id="pricingTab" class="admin-tab-content">
+                <div class="admin-section">
+                    <h3 class="admin-section-title"><i class="fas fa-tags"></i> Update Prices</h3>
+                    <form class="admin-form" id="updatePricesForm">
+                        <div class="form-group">
+                            <label for="selectProduct">Select Product</label>
+                            <select id="selectProduct" required>
+                                <option value="">Select a product</option>
+                                <!-- Products will be dynamically loaded here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateOriginalPrice">Original Price (LTC)</label>
+                            <input type="number" id="updateOriginalPrice" placeholder="Enter original price" step="0.0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateDiscountedPrice">Discounted Price (LTC)</label>
+                            <input type="number" id="updateDiscountedPrice" placeholder="Enter discounted price" step="0.0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="discountPercentage">Discount Percentage</label>
+                            <input type="text" id="discountPercentage" placeholder="Auto calculated" readonly>
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <button type="submit" class="btn">Update Prices</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refund Policy Popup -->
+    <div id="refundPopup" class="refund-popup">
+        <div class="refund-container">
+            <button class="refund-close-btn" onclick="closeRefundPolicy()">&times;</button>
+            <h2 class="refund-title">Refund Policy</h2>
+            
+            <div class="refund-section">
+                <h3 class="refund-section-title"><i class="fas fa-exchange-alt"></i> Our Refund Policy</h3>
+                <p>At MineFire Store, we strive to ensure complete customer satisfaction with our digital Minecraft products. Due to the digital nature of our products, we have specific refund policies in place.</p>
+            </div>
+            
+            <div class="refund-section">
+                <h3 class="refund-section-title"><i class="fas fa-check-circle"></i> Eligibility for Refunds</h3>
+                <p>Refunds may be considered under the following circumstances:</p>
+                <ul class="refund-list">
+                    <li>If the product was not delivered due to a technical error on our end</li>
+                    <li>If the product received is significantly different from what was described</li>
+                    <li>If the product is completely non-functional and our support team cannot resolve the issue</li>
+                </ul>
+            </div>
+            
+            <div class="refund-section">
+                <h3 class="refund-section-title"><i class="fas fa-times-circle"></i> Non-Refundable Situations</h3>
+                <p>Refunds will not be provided in the following cases:</p>
+                <ul class="refund-list">
+                    <li>If you change your mind after purchase</li>
+                    <li>If you didn't read the product description properly before purchasing</li>
+                    <li>If the product doesn't work as expected due to your system configuration</li>
+                    <li>If you've already used the product for an extended period</li>
+                    <li>If the issue can be resolved through our customer support</li>
+                </ul>
+            </div>
+            
+            <div class="refund-section">
+                <h3 class="refund-section-title"><i class="fas fa-clock"></i> Refund Timeframe</h3>
+                <p>Refund requests must be made within 7 days of purchase. Approved refunds will be processed within 5-7 business days and credited to your original payment method.</p>
+            </div>
+            
+            <div class="refund-section">
+                <h3 class="refund-section-title"><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
+                <div class="refund-note">
+                    <h4><i class="fas fa-info-circle"></i> Please Note</h4>
+                    <p>All refund requests are reviewed on a case-by-case basis. We reserve the right to deny refunds that don't meet our policy criteria. In cases where a refund is granted, access to the product will be revoked.</p>
+                </div>
+            </div>
+            
+            <div class="refund-section">
+                <h3 class="refund-section-title"><i class="fas fa-headset"></i> How to Request a Refund</h3>
+                <p>To request a refund, please contact our support team with:</p>
+                <ul class="refund-list">
+                    <li>Your order ID</li>
+                    <li>The email address used for purchase</li>
+                    <li>A detailed explanation of why you're requesting a refund</li>
+                    <li>Any supporting evidence (screenshots, etc.)</li>
+                </ul>
+                <div class="refund-contact">
+                    <p>Contact us at: <a href="mailto:userforyt268@gmail.com">userforyt268@gmail.com</a></p>
+                    <p>We typically respond within 24-48 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Form Popup -->
+    <div id="orderForm" class="form-popup">
+        <div class="form-container">
+            <button class="close-btn" onclick="closeForm()">&times;</button>
+            <div id="formContent" class="form-content">
+                <h2>Order Form</h2>
+                <form id="orderFormContent" action="https://formspree.io/f/xyzdgpay" method="POST">
+                    <input type="hidden" id="selectedPlan" name="plan">
+                    <input type="hidden" id="selectedPrice" name="price">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Special Instructions (Optional)</label>
+                        <textarea id="message" name="message" placeholder="Any special requests or notes" rows="4"></textarea>
+                    </div>
+                    <div class="payment-instructions">
+                        <h3>Payment Instructions</h3>
+                        <p>Please send <strong><span id="displayPrice">0</span> LTC</strong> to the Litecoin address below to complete your purchase.</p>
+                    </div>
+                    <div class="qr-code-container">
+                        <h4>Scan to Pay with Litecoin</h4>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=ltc1qeqntneu37v5m8d726xtpeg8p7kfsjc6ylqf7mw" alt="LTC QR Code">
+                        <p>OR</p>
+                        <div class="ltc-address">ltc1qeqntneu37v5m8d726xtpeg8p7kfsjc6ylqf7mw</div>
+                    </div>
+                    <div class="upload-instructions">
+                        <h4>How to Upload Payment Proof</h4>
+                        <ol>
+                            <li>Complete the LTC payment from your wallet</li>
+                            <li>Take a screenshot showing the transaction details</li>
+                            <li>Upload it to <a href="https://imgbb.com/" target="_blank">imgbb.com</a> (free)</li>
+                            <li>Copy the image link and paste it below</li>
+                        </ol>
+                    </div>
+                    <div class="form-group">
+                        <label for="screenshotLink">Payment Screenshot Link</label>
+                        <input type="url" id="screenshotLink" name="screenshot_link" placeholder="https://ibb.co/..." required>
+                    </div>
+                    <button type="submit" class="btn">Submit Order</button>
+                </form>
+            </div>
+            <div id="successMessage" class="form-success">
+                <div class="success-message">
+                    <button class="success-close-btn" onclick="closeForm()">&times;</button>
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Order Placed Successfully! 🎉</h3>
+                    <p>Thank you for your order, <span id="customerName"></span>!</p>
+                    <p>We have received your order for <strong id="orderPlan"></strong> (<strong id="orderPrice"></strong> LTC).</p>
+                    <p>We will verify your payment and contact you at <strong id="customerEmail"></strong> with your product.</p>
+                    <p>Delivery typically takes 1-2 hours after verification.</p>
+                    <p>For any questions, contact us at: <a href="mailto:userforyt268@gmail.com" style="color: white; text-decoration: underline;">userforyt268@gmail.com</a></p>
+                    <button class="success-action-btn" onclick="closeForm()">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Popup -->
+    <div id="adminLoginPopup" class="form-popup">
+        <div class="form-container">
+            <button class="close-btn" onclick="closeAdminLogin()">&times;</button>
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Admin Email</label>
+                    <input type="email" id="adminEmail" placeholder="Enter admin email" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Login Button -->
+    <button class="admin-login-btn" onclick="openAdminLogin()">
+        <i class="fas fa-lock"></i> Admin Login
+    </button>
+
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+    </div>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">About MineFire Store</h3>
+                    <p class="footer-text">Your premier destination for premium Minecraft accounts and services. We are dedicated to enhancing your Minecraft experience with high-quality products and exceptional customer support.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-contact-list">
+                        <li class="footer-contact-item">
+                            <i class="fas fa-envelope footer-icon"></i>
+                            <a href="mailto:userforyt268@gmail.com" class="footer-link">userforyt268@gmail.com</a>
+                        </li>
+                        <li class="footer-contact-item">
+                            <i class="fas fa-headset footer-icon"></i>
+                            <span class="footer-text">24/7 Customer Support</span>
+                        </li>
+                        <li class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt footer-icon"></i>
+                            <span class="footer-text">India</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Connect With Us</h3>
+                    <div class="footer-social">
+                        <a href="https://discord.gg/KHF2ZrefUr" class="footer-social-link" aria-label="Discord">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="https://youtube.com/@minefire1m?si=u3ezSLgtZ7Ug0QMF" class="footer-social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://www.instagram.com/minefire.1m?igsh=MTRibDh6b2x0dGVjeQ==" class="footer-social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <p class="footer-text" style="margin-top: 1rem; font-size: 0.9rem;">
+                        &copy; 2025 MineFire Store. All rights reserved.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-text" style="font-size: 0.9rem; opacity: 0.8;">
+                    Crafted with <i class="fas fa-heart" style="color: var(--accent);"></i> By <a href="https://galaxy0115.netlify.app" target="_blank" class="footer-link">GalaxyDevelopment</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Theme switching functionality
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const themeIcon = themeSwitcher.querySelector('i');
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        themeSwitcher.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Product data
+        let products = JSON.parse(localStorage.getItem('minefire_products')) || [
+            { 
+                id: 1, 
+                title: "Premium Minecraft Account", 
+                description: "Get a premium Minecraft account with full access. All accounts come with secure email access and lifetime warranty.", 
+                originalPrice: 0.0031, 
+                discountedPrice: 0.0025,
+                category: "minecraft", 
+                popularity: 95, 
+                createdAt: new Date(2025, 7, 1).getTime(), 
+                features: ["Full access Minecraft account", "Secure email access", "Lifetime warranty", "24/7 customer support", "Instant delivery after payment"],
+                image: "https://i.ibb.co/0Q8Jz9F/minecraft-account.png",
+                stockStatus: "in-stock",
+                isTrending: true
+            },
+            { 
+                id: 2, 
+                title: "Minecraft Account + Cape Bundle", 
+                description: "Get a premium Minecraft account with an exclusive cape. Perfect for players who want to stand out.", 
+                originalPrice: 0.0050, 
+                discountedPrice: 0.0045,
+                category: "minecraft", 
+                popularity: 88, 
+                createdAt: new Date(2025, 7, 10).getTime(), 
+                features: ["Premium Minecraft account", "Exclusive cape", "Special bundled price", "Priority customer support", "Fastest delivery"],
+                image: "https://i.ibb.co/4W4yL0n/minecraft-cape.png",
+                stockStatus: "limited-stock",
+                isTrending: false
+            },
+            { 
+                id: 3, 
+                title: "Minecraft Account Pro", 
+                description: "Our most advanced Minecraft account with all premium features unlocked and exclusive skins.", 
+                originalPrice: 0.0075, 
+                discountedPrice: 0.0059,
+                category: "minecraft", 
+                popularity: 78, 
+                createdAt: new Date(2025, 7, 20).getTime(), 
+                features: ["All premium features unlocked", "Exclusive skins", "Priority support", "Early access to new features", "Lifetime updates"],
+                image: "https://i.ibb.co/6r2V3nK/minecraft-pro.png",
+                stockStatus: "out-of-stock",
+                isTrending: true
+            },
+            { 
+                id: 4, 
+                title: "Starter Minecraft Account", 
+                description: "Perfect for new players. A basic Minecraft account at an affordable price.", 
+                originalPrice: 0.0020, 
+                discountedPrice: 0.0015,
+                category: "minecraft", 
+                popularity: 85, 
+                createdAt: new Date(2025, 8, 5).getTime(), 
+                features: ["Basic Minecraft account", "Secure email access", "30-day warranty", "Customer support", "Instant delivery"],
+                image: "https://i.ibb.co/7QpL60N/minecraft-starter.png",
+                stockStatus: "in-stock",
+                isTrending: false
+            },
+            { 
+                id: 5, 
+                title: "Netflix Premium Account", 
+                description: "Get a premium Netflix account with 4K streaming and multiple screens.", 
+                originalPrice: 0.0040, 
+                discountedPrice: 0.0032,
+                category: "ott", 
+                popularity: 90, 
+                createdAt: new Date(2025, 8, 15).getTime(), 
+                features: ["4K Ultra HD streaming", "4 screens at once", "No ads", "30-day warranty", "Instant delivery"],
+                image: "https://i.ibb.co/0Q8Jz9F/minecraft-account.png",
+                stockStatus: "in-stock",
+                isTrending: true
+            }
+        ];
+
+        let orders = JSON.parse(localStorage.getItem('minefire_orders')) || [];
+
+        const ADMIN_EMAIL = "admin@minefire.com";
+        const ADMIN_PASSWORD = "admin@login786";
+
+        let currentFilters = { sort: 'default', category: 'all' };
+
+        // Calculate discount percentage
+        function calculateDiscountPercentage(originalPrice, discountedPrice) {
+            return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
+        }
+
+        // Show notification
+        function showNotification(message, isSuccess = true) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            notificationText.textContent = message;
+            notification.className = isSuccess ? 'notification success' : 'notification error';
+            notification.classList.add('show');
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('minefire_products', JSON.stringify(products));
+            localStorage.setItem('minefire_orders', JSON.stringify(orders));
+        }
+
+        // Apply filters and sorting
+        function applyFilters() {
+            let filteredProducts = [...products];
+            
+            // Category filter
+            if (currentFilters.category !== 'all') {
+                filteredProducts = filteredProducts.filter(p => p.category === currentFilters.category);
+            }
+            
+            // Sort products
+            switch(currentFilters.sort) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.discountedPrice - b.discountedPrice);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.discountedPrice - a.discountedPrice);
+                    break;
+                case 'popularity':
+                    filteredProducts.sort((a, b) => b.popularity - a.popularity);
+                    break;
+                case 'newest':
+                    filteredProducts.sort((a, b) => b.createdAt - a.createdAt);
+                    break;
+            }
+            
+            return filteredProducts;
+        }
+
+        // Render products
+        function renderProducts() {
+            const productsContainer = document.getElementById('productsContainer');
+            productsContainer.innerHTML = '';
+            
+            const filteredProducts = applyFilters();
+            
+            if (filteredProducts.length === 0) {
+                productsContainer.innerHTML = `
+                    <div class="no-products" style="text-align: center; padding: 2rem;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;">No products found</h3>
+                        <p style="color: var(--text-secondary);">Try adjusting your filters to see more products.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredProducts.forEach(product => {
+                const discountPercentage = calculateDiscountPercentage(product.originalPrice, product.discountedPrice);
+                
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.title}" class="product-image">
+                        <div class="stock-badge ${product.stockStatus}">
+                            ${product.stockStatus === 'in-stock' ? 'In Stock' : 
+                              product.stockStatus === 'limited-stock' ? 'Limited Stock' : 'Out of Stock'}
+                        </div>
+                        ${product.isTrending ? `<div class="trending-badge"><i class="fas fa-fire"></i> Trending</div>` : ''}
+                    </div>
+                    <h2>${product.title}</h2>
+                    <ul class="product-features">${product.features.map(f => `<li>${f}</li>`).join('')}</ul>
+                    <div class="price-container">
+                        <div class="original-price">${product.originalPrice} LTC</div>
+                        <div><span class="current-price">${product.discountedPrice} LTC</span><span class="discount-badge">${discountPercentage}% OFF</span></div>
+                    </div>
+                    ${product.stockStatus === 'out-of-stock' ? 
+                        `<button class="buy-now-btn" disabled>Out of Stock</button>` : 
+                        `<button class="view-details-btn" onclick="viewProductDetails(${product.id})">View Details</button>
+                         <button class="buy-now-btn" onclick="openForm('${product.title}', ${product.discountedPrice})">Buy Now</button>`
+                    }
+                `;
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        // View product details
+        function viewProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const discountPercentage = calculateDiscountPercentage(product.originalPrice, product.discountedPrice);
+            
+            document.getElementById('productsContainer').style.display = 'none';
+            document.getElementById('productDetail').style.display = 'block';
+            
+            document.getElementById('productDetailContent').innerHTML = `
+                <div class="product-detail-image-container">
+                    <img src="${product.image}" alt="${product.title}" class="product-detail-image">
+                    <div class="stock-badge ${product.stockStatus}">
+                        ${product.stockStatus === 'in-stock' ? 'In Stock' : 
+                          product.stockStatus === 'limited-stock' ? 'Limited Stock' : 'Out of Stock'}
+                    </div>
+                    ${product.isTrending ? `<div class="trending-badge"><i class="fas fa-fire"></i> Trending</div>` : ''}
+                </div>
+                <div class="product-detail-info">
+                    <h2>${product.title}</h2>
+                    <ul class="product-detail-features">${product.features.map(f => `<li>${f}</li>`).join('')}</ul>
+                    <p class="product-detail-description">${product.description}</p>
+                    <div class="product-detail-price">
+                        <div class="original-price">${product.originalPrice} LTC</div>
+                        <div><span class="current-price">${product.discountedPrice} LTC</span><span class="discount-badge">${discountPercentage}% OFF</span></div>
+                    </div>
+                    ${product.stockStatus === 'out-of-stock' ? 
+                        `<button class="btn" disabled>Out of Stock</button>` : 
+                        `<button class="btn" onclick="openForm('${product.title}', ${product.discountedPrice})">Buy Now</button>`
+                    }
+                </div>
+            `;
+            
+            window.scrollTo({ top: document.getElementById('productDetail').offsetTop, behavior: 'smooth' });
+        }
+
+        // Back to products
+        function backToProducts() {
+            document.getElementById('productDetail').style.display = 'none';
+            document.getElementById('productsContainer').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Open refund policy
+        function openRefundPolicy() {
+            document.getElementById('refundPopup').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close refund policy
+        function closeRefundPolicy() {
+            document.getElementById('refundPopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open form
+        function openForm(product, price) {
+            document.getElementById('selectedPlan').value = product;
+            document.getElementById('selectedPrice').value = price;
+            document.getElementById('displayPrice').textContent = price;
+            document.getElementById('formContent').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('orderFormContent').reset();
+            document.getElementById('orderForm').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close form
+        function closeForm() {
+            document.getElementById('orderForm').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Open admin login
+        function openAdminLogin() {
+            document.getElementById('adminLoginPopup').style.display = 'flex';
+        }
+
+        // Close admin login
+        function closeAdminLogin() {
+            document.getElementById('adminLoginPopup').style.display = 'none';
+        }
+
+        // Open admin tab
+        function openAdminTab(tabName) {
+            document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            if (tabName === 'products') {
+                renderProductsTable();
+            } else if (tabName === 'orders') {
+                renderOrdersTable();
+            } else if (tabName === 'pricing') {
+                updateProductDropdowns();
+            }
+        }
+
+        // Render products table in admin panel
+        function renderProductsTable() {
+            const productsTable = document.getElementById('productsTable');
+            productsTable.innerHTML = '';
+            
+            products.forEach(product => {
+                const discountPercentage = calculateDiscountPercentage(product.originalPrice, product.discountedPrice);
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${product.title}</td>
+                    <td>${product.category}</td>
+                    <td>${product.originalPrice} LTC</td>
+                    <td>${product.discountedPrice} LTC</td>
+                    <td>${discountPercentage}%</td>
+                    <td>${product.stockStatus === 'in-stock' ? 'In Stock' : product.stockStatus === 'limited-stock' ? 'Limited Stock' : 'Out of Stock'}</td>
+                    <td>${product.isTrending ? 'Yes' : 'No'}</td>
+                    <td>
+                        <button class="admin-action-btn btn-edit" onclick="editProduct(${product.id})">Edit</button>
+                        <button class="admin-action-btn btn-delete" onclick="deleteProduct(${product.id})">Delete</button>
+                    </td>
+                `;
+                productsTable.appendChild(tr);
+            });
+        }
+
+        // Render orders table in admin panel
+        function renderOrdersTable() {
+            const ordersTable = document.getElementById('ordersTable');
+            ordersTable.innerHTML = '';
+            
+            orders.forEach(order => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.product}</td>
+                    <td>${order.amount} LTC</td>
+                    <td><span class="order-status status-${order.status}">${order.status}</span></td>
+                    <td>
+                        <button class="admin-action-btn btn-view" onclick="viewOrder('${order.id}')">View</button>
+                        <button class="admin-action-btn btn-edit" onclick="editOrder('${order.id}')">Edit</button>
+                    </td>
+                `;
+                ordersTable.appendChild(tr);
+            });
+        }
+
+        // Update product dropdowns
+        function updateProductDropdowns() {
+            const selectProduct = document.getElementById('selectProduct');
+            selectProduct.innerHTML = '<option value="">Select a product</option>';
+            
+            products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = product.title;
+                selectProduct.appendChild(option);
+            });
+            
+            // Add event listener to update form when product is selected
+            selectProduct.addEventListener('change', function() {
+                const productId = parseInt(this.value);
+                if (productId) {
+                    const product = products.find(p => p.id === productId);
+                    if (product) {
+                        document.getElementById('updateOriginalPrice').value = product.originalPrice;
+                        document.getElementById('updateDiscountedPrice').value = product.discountedPrice;
+                        
+                        // Calculate and update discount percentage
+                        const discountPercentage = calculateDiscountPercentage(product.originalPrice, product.discountedPrice);
+                        document.getElementById('discountPercentage').value = `${discountPercentage}%`;
+                    }
+                } else {
+                    document.getElementById('updateOriginalPrice').value = '';
+                    document.getElementById('updateDiscountedPrice').value = '';
+                    document.getElementById('discountPercentage').value = '';
+                }
+            });
+            
+            // Add event listener to calculate discount when discounted price changes
+            document.getElementById('updateDiscountedPrice').addEventListener('input', function() {
+                const originalPrice = parseFloat(document.getElementById('updateOriginalPrice').value) || 0;
+                const discountedPrice = parseFloat(this.value) || 0;
+                
+                if (originalPrice > 0 && discountedPrice > 0 && discountedPrice < originalPrice) {
+                    const discountPercentage = calculateDiscountPercentage(originalPrice, discountedPrice);
+                    document.getElementById('discountPercentage').value = `${discountPercentage}%`;
+                } else {
+                    document.getElementById('discountPercentage').value = '';
+                }
+            });
+        }
+
+        // Edit product
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                document.getElementById('productTitle').value = product.title;
+                document.getElementById('productDescription').value = product.description;
+                document.getElementById('originalPrice').value = product.originalPrice;
+                document.getElementById('discountedPrice').value = product.discountedPrice;
+                document.getElementById('productCategory').value = product.category;
+                document.getElementById('productFeatures').value = product.features.join(', ');
+                document.getElementById('stockStatus').value = product.stockStatus;
+                document.getElementById('isTrending').value = product.isTrending.toString();
+                
+                // Set the image preview if it's a base64 image
+                if (product.image.startsWith('data:image')) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = product.image;
+                    preview.appendChild(img);
+                    document.getElementById('productImage').value = product.image;
+                }
+                
+                showNotification('Edit the product details and submit the form to update');
+            }
+        }
+
+        // Delete product
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                saveData();
+                renderProducts();
+                renderProductsTable();
+                showNotification('Product deleted successfully!');
+            }
+        }
+
+        // View order
+        function viewOrder(id) {
+            const order = orders.find(o => o.id === id);
+            if (order) {
+                alert(`Order Details:\nID: ${order.id}\nCustomer: ${order.customer}\nProduct: ${order.product}\nAmount: ${order.amount} LTC\nStatus: ${order.status}\nDate: ${order.date}`);
+            }
+        }
+
+        // Edit order
+        function editOrder(id) {
+            const order = orders.find(o => o.id === id);
+            if (order) {
+                const newStatus = prompt('Enter new status (pending, processing, completed, cancelled):', order.status);
+                if (newStatus && ['pending', 'processing', 'completed', 'cancelled'].includes(newStatus)) {
+                    order.status = newStatus;
+                    saveData();
+                    renderOrdersTable();
+                    showNotification('Order status updated successfully!');
+                }
+            }
+        }
+
+        // Image upload functions
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const hiddenInput = document.getElementById('productImage');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Clear any placeholder
+                    preview.innerHTML = '';
+                    
+                    // Create and add the image
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    preview.appendChild(img);
+                    
+                    // Store the base64 encoded image in the hidden input
+                    hiddenInput.value = e.target.result;
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        function removeImage() {
+            const preview = document.getElementById('imagePreview');
+            const hiddenInput = document.getElementById('productImage');
+            const fileInput = document.getElementById('imageUpload');
+            
+            // Reset everything
+            preview.innerHTML = '<div class="placeholder">Image preview will appear here</div>';
+            hiddenInput.value = '';
+            fileInput.value = '';
+        }
+
+        // Helper function to add product to system
+        function addProductToSystem(title, description, originalPrice, discountedPrice, category, features, stockStatus, isTrending, imageData) {
+            const newProduct = {
+                id: products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1,
+                title, 
+                description, 
+                originalPrice, 
+                discountedPrice,
+                category,
+                popularity: Math.floor(Math.random() * 31) + 70, 
+                createdAt: Date.now(), 
+                features,
+                image: imageData || "https://i.ibb.co/0Q8Jz9F/minecraft-account.png", // Use default if no image uploaded
+                stockStatus,
+                isTrending
+            };
+            
+            products.push(newProduct);
+            saveData();
+            renderProducts();
+            renderProductsTable();
+            document.getElementById('addProductForm').reset();
+            removeImage(); // Reset the image upload
+            showNotification('Product added successfully!');
+        }
+
+        // Initialize
+        function init() {
+            renderProducts();
+            
+            // Handle order form submission
+            document.getElementById('orderFormContent').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const screenshotLink = document.getElementById('screenshotLink').value;
+                const plan = document.getElementById('selectedPlan').value;
+                const price = document.getElementById('selectedPrice').value;
+
+                if (!name || !email || !screenshotLink) {
+                    showNotification('Please fill all required fields', false);
+                    return;
+                }
+
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+
+                // Create form data for Formspree
+                const formData = new FormData(this);
+                
+                // Add additional fields that might be needed
+                formData.append('product', plan);
+                formData.append('amount', price + ' LTC');
+                formData.append('_subject', `New Order: ${plan}`);
+
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Create a new order
+                        const newOrder = {
+                            id: "MF" + Math.floor(10000 + Math.random() * 90000),
+                            customer: email,
+                            product: plan,
+                            amount: parseFloat(price),
+                            status: "pending",
+                            date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                        };
+                        orders.push(newOrder);
+                        saveData();
+                        
+                        // Show success message
+                        document.getElementById('customerName').textContent = name;
+                        document.getElementById('customerEmail').textContent = email;
+                        document.getElementById('orderPlan').textContent = plan;
+                        document.getElementById('orderPrice').textContent = price;
+                        document.getElementById('formContent').style.display = 'none';
+                        document.getElementById('successMessage').style.display = 'block';
+                        
+                        showNotification('Order placed successfully!');
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    showNotification('Error submitting form. Please try again.', false);
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                });
+            });
+            
+            // Handle admin login
+            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('adminEmail').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                    document.getElementById('adminPanel').style.display = 'block';
+                    closeAdminLogin();
+                    showNotification('Admin login successful!');
+                    
+                    // Render admin tables
+                    renderProductsTable();
+                    renderOrdersTable();
+                    updateProductDropdowns();
+                } else {
+                    showNotification('Invalid admin credentials', false);
+                }
+            });
+            
+            // Handle add product form
+            document.getElementById('addProductForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const title = document.getElementById('productTitle').value;
+                const description = document.getElementById('productDescription').value;
+                const originalPrice = parseFloat(document.getElementById('originalPrice').value);
+                const discountedPrice = parseFloat(document.getElementById('discountedPrice').value);
+                const category = document.getElementById('productCategory').value;
+                const features = document.getElementById('productFeatures').value.split(',').map(f => f.trim());
+                const stockStatus = document.getElementById('stockStatus').value;
+                const isTrending = document.getElementById('isTrending').value === 'true';
+                const imageData = document.getElementById('productImage').value;
+                
+                addProductToSystem(title, description, originalPrice, discountedPrice, category, features, stockStatus, isTrending, imageData);
+            });
+            
+            // Handle update prices form
+            document.getElementById('updatePricesForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const productId = parseInt(document.getElementById('selectProduct').value);
+                const originalPrice = parseFloat(document.getElementById('updateOriginalPrice').value);
+                const discountedPrice = parseFloat(document.getElementById('updateDiscountedPrice').value);
+                
+                const productIndex = products.findIndex(p => p.id === productId);
+                if (productIndex !== -1) {
+                    products[productIndex].originalPrice = originalPrice;
+                    products[productIndex].discountedPrice = discountedPrice;
+                    saveData();
+                    renderProducts();
+                    renderProductsTable();
+                    this.reset();
+                    document.getElementById('selectProduct').value = '';
+                    showNotification('Prices updated successfully!');
+                }
+            });
+            
+            // Add event listeners for filters
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentFilters.sort = this.value;
+                renderProducts();
+            });
+            
+            document.getElementById('categorySelect').addEventListener('change', function() {
+                currentFilters.category = this.value;
+                renderProducts();
+            });
+            
+            document.getElementById('clearFilters').addEventListener('click', function() {
+                currentFilters = { sort: 'default', category: 'all' };
+                document.getElementById('sortSelect').value = 'default';
+                document.getElementById('categorySelect').value = 'all';
+                renderProducts();
+            });
+            
+            // Close refund policy when clicking outside
+            document.getElementById('refundPopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeRefundPolicy();
+                }
+            });
+            
+            // Close order form when clicking outside
+            document.getElementById('orderForm').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeForm();
+                }
+            });
+            
+            // Close admin login when clicking outside
+            document.getElementById('adminLoginPopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAdminLogin();
+                }
+            });
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
